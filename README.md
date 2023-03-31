@@ -2,5 +2,5 @@
 
 ## Backend stack:
 
-- Go/Fiber,
+- Go/Gin,
 - Postgres
