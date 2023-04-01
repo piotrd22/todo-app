@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/piotrd22/todo-app/backend/initializers"
-	"github.com/piotrd22/todo-app/backend/models"
+	"github.com/piotrd22/todo-app/backend/api/initializers"
+	"github.com/piotrd22/todo-app/backend/api/models"
 )
 
 func init() {
-	initializers.ConnectToDB()
 	initializers.LoadEnvVariables()
+	initializers.ConnectToDB()
 }
 
 func main() {

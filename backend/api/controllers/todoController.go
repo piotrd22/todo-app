@@ -4,13 +4,13 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/piotrd22/todo-app/backend/initializers"
-	"github.com/piotrd22/todo-app/backend/models"
+	"github.com/piotrd22/todo-app/backend/api/initializers"
+	"github.com/piotrd22/todo-app/backend/api/models"
 )
 
 func GetTodos(c *gin.Context) {
 	var todos []models.Todo
-	result := initializers.DB.Order("When ASC").Find(&todos)
+	result := initializers.DB.Find(&todos)
 
 	if result.Error != nil {
 		c.Status(400)
@@ -18,7 +18,7 @@ func GetTodos(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{
-		"todos": result,
+		"todos": todos,
 	})
 }
 
@@ -54,6 +54,13 @@ func DeleteTodo(c *gin.Context) {
 	id := c.Param("id")
 
 	var todo models.Todo
+	check := initializers.DB.Find(&todo, id)
+
+	if check.Error != nil || check == nil {
+		c.Status(400)
+		return
+	}
+
 	result := initializers.DB.Unscoped().Delete(&todo, id)
 
 	if result.Error != nil {
@@ -89,4 +96,7 @@ func UpdateTodo(c *gin.Context) {
 		return
 	}
 
+	initializers.DB.First(&todo, id).Updates(models.Todo{Name: body.Name, Text: body.Text, When: body.When})
+
+	c.JSON(200, todo)
 }
