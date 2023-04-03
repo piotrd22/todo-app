@@ -15,9 +15,10 @@ func init() {
 func main() {
 	r := gin.Default()
 
-	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost:3000"},
-	}))
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:3000"}
+
+	r.Use(cors.New(config))
 
 	r.POST("/api/todo", controllers.CreateTodo)
 	r.GET("/api/todo", controllers.GetTodos)
