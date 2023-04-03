@@ -1,13 +1,5 @@
 version: "3.8"
 services:
-  backend:
-    build: ./backend
-    networks:
-      - frontend_network
-      - backend_network
-    ports:
-      - 8080:8080
-
   db:
     image: postgres:latest
     ports:
@@ -16,8 +8,21 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: todo-app
+      DB_HOST: db
     networks:
       - backend_network
+
+  backend:
+    build: ./backend
+    networks:
+      - frontend_network
+      - backend_network
+    ports:
+      - 8080:8080
+    env_file:
+      - ./backend/api/.env
+    depends_on:
+      - db
 
 networks:
   frontend_network:
