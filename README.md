@@ -4,3 +4,7 @@
 
 - Go/Gin,
 - Postgres
+
+## Frontend stack:
+- React/Next
+- Tailwind with DaisyUI
