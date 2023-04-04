@@ -25,5 +25,8 @@ func main() {
 	r.DELETE("/api/todo/:id", controllers.DeleteTodo)
 	r.PUT("/api/todo/:id", controllers.UpdateTodo)
 
-	r.Run()
+	err := r.Run()
+	if err != nil {
+		return
+	}
 }
