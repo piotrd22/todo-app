@@ -1,8 +1,31 @@
 import Form from "@/components/Form";
 import MainLayout from "@/layouts/MainLayout";
 import Head from "next/head";
+import { Todo } from "@/types/Todo";
+import axios from "axios";
+import OneTodo from "@/components/OneTodo";
+import { useState } from "react";
 
-export default function Home() {
+export async function getServerSideProps() {
+  const res = await axios.get("http://localhost:8080/api/todo");
+  return {
+    props: {
+      todos: res.data.todos,
+    },
+  };
+}
+
+type Props = {
+  todos: Todo[];
+};
+
+export default function Home({ todos }: Props) {
+  const [todo, setTodo] = useState(todos);
+
+  const todoComponent = todo?.map((todo: Todo, index: number) => (
+    <OneTodo todo={todo} index={index} key={todo.ID} setTodo={setTodo} />
+  ));
+
   return (
     <>
       <Head>
@@ -11,7 +34,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <MainLayout>
-        <Form />
+        <Form setTodo={setTodo} />
+        {todoComponent}
       </MainLayout>
     </>
   );

@@ -10,7 +10,11 @@ const MainLayout: FC<PropsWithChildren<MainLayoutProps>> = ({
 }) => (
   <div className="container mx-auto p-3 min-h-screen">
     <main
-      className={className ? className : "container mx-auto flex flex-auto"}
+      className={
+        className
+          ? className
+          : "container mx-auto flex-row justify-items-center items-center"
+      }
     >
       {children}
     </main>

@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Todo } from "@/types/Todo";
+import { Dispatch, SetStateAction } from "react";
 
 type Form = {
   name: string;
@@ -8,7 +10,11 @@ type Form = {
   text: string;
 };
 
-function Form() {
+type Props = {
+  setTodo: Dispatch<SetStateAction<Todo[]>>;
+};
+
+function Form({ setTodo }: Props) {
   const notify = (data: string) =>
     toast.success(data, {
       position: "top-right",
@@ -46,8 +52,9 @@ function Form() {
       text: data.text,
       when: new Date(data.when),
     })
-      .then((_) => {
+      .then((res) => {
         reset();
+        setTodo((prev) => [...prev, res]);
         notify("Todo has been added!");
       })
       .catch((error) => {
