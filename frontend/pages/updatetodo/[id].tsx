@@ -1,5 +1,6 @@
 import Form from "@/components/Form";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -45,7 +46,7 @@ function UpdateTodoForm() {
       text: data.text,
       when: new Date(data.when),
     })
-      .then((res) => {
+      .then((_) => {
         reset();
         router.push(`/`);
         notify("Todo has been updated!");
@@ -57,6 +58,9 @@ function UpdateTodoForm() {
 
   return (
     <div>
+      <Link href="/" className="btn m-5">
+        &#8592; Back
+      </Link>
       <form
         className="sm:w-full lg:w-1/2 flex flex-col justify-items-center mx-auto"
         onSubmit={handleSubmit(onSubmit)}
