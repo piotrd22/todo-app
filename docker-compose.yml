@@ -24,6 +24,15 @@ services:
     depends_on:
       - db
 
+  frontend:
+    build: ./frontend
+    networks:
+      - frontend_network
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+
 networks:
   frontend_network:
     driver: bridge

@@ -8,5 +8,6 @@ A basic todo application written for university needs. It was intended to show t
 - Postgres
 
 ## Frontend stack:
+
 - React/Next
 - Tailwind with DaisyUI

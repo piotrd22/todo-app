@@ -7,7 +7,7 @@ import OneTodo from "@/components/OneTodo";
 import { useState } from "react";
 
 export async function getServerSideProps() {
-  const res = await axios.get("http://localhost:8080/api/todo");
+  const res = await axios.get("http://backend:8080/api/todo");
   return {
     props: {
       todos: res.data.todos,

@@ -41,7 +41,9 @@ function Form({ setTodo }: Props) {
   });
 
   const createTodo = async (data: Form) => {
-    const res = await axios.post(`http://localhost:8080/api/todo`, data);
+    const res = await axios.post(`http://localhost:8080/api/todo`, data, {
+      withCredentials: true,
+    });
 
     return res.data;
   };
